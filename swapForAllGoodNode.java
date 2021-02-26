@@ -27,7 +27,8 @@ class Node {
     */
 
 class swapForAllGoodNode {
-	public static int minSwap(Node[][]connection) {
+	    public static int minSwapV2(Node[][]connection) {
+        Set<Node>set = new HashSet<>();
         Map<Node, List<Node>>graph = new HashMap<>();
         for(Node[] node: connection) {
             List<Node>list = new ArrayList<>();
@@ -36,15 +37,20 @@ class swapForAllGoodNode {
         for(Node[] node: connection) {
             List<Node>list = graph.get(node[0]);
             list.add(node[1]);
+            set.add(node[0]);
+            set.add(node[1]);
         }
-        // for(Node n: graph.keySet()) {
-        //     if(n.good == 0) {
-        //         dfs(graph, n);
-        //     }
-        // }
-        // for(Node[] n: connection) {
-        //     System.out.println("("+n[0].val+","+n[0].good+")"+"->"+"("+n[1].val+","+n[1].good+")");
-        // }
+        // another step to find the bad node that points to no one
+        List<Node>endBad = new ArrayList<>();
+        for(Node n: set) {
+            if(n.good == 0 && !graph.keySet().contains(n)) {
+                endBad.add(n);
+            }
+        }
+        System.out.println("size="+endBad.size());
+        if(endBad.size()!= 0) {
+            return endBad.size();
+        }
         int numOfSwap = 0;
         // get all edges where good -> bad
         for(Node[] n: connection) {
@@ -78,7 +84,7 @@ class swapForAllGoodNode {
     public static void main(String[] arg) {
         /*
            (0,0)->(1,0)->(2,0)<-(3,1)
-           swap 3rd and 4th node
+           1 swap for 3rd and 4th node
            (0,0)->(1,0)->(2,1)<-(3,0)
            then all bad nodes has a path to a goof node, then all will be good           
         */
@@ -101,7 +107,6 @@ class swapForAllGoodNode {
          (0,0) ->(2,0) ->(3,0) <- (4,1)
                    |      
             (1,0)->
-            after 1 dfs, graph becomes
              swap (4,1) and (3,0), then all will be good node 
         */ 
         Node n6 = new Node(0,0);

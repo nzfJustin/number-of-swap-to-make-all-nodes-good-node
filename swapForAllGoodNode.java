@@ -27,7 +27,8 @@ class Node {
     */
 
 class swapForAllGoodNode {
-	    public static int minSwapV2(Node[][]connection) {
+   public static int minSwapV2(Node[][]connection) {
+	// used to store all nodes in the graph
         Set<Node>set = new HashSet<>();
         Map<Node, List<Node>>graph = new HashMap<>();
         for(Node[] node: connection) {
@@ -35,8 +36,7 @@ class swapForAllGoodNode {
             graph.put(node[0], list);
         }
         for(Node[] node: connection) {
-            List<Node>list = graph.get(node[0]);
-            list.add(node[1]);
+            graph.get(node[0]).add(node[1]);
             set.add(node[0]);
             set.add(node[1]);
         }
@@ -47,7 +47,7 @@ class swapForAllGoodNode {
                 endBad.add(n);
             }
         }
-        System.out.println("size="+endBad.size());
+        //System.out.println("size="+endBad.size());
         if(endBad.size()!= 0) {
             return endBad.size();
         }

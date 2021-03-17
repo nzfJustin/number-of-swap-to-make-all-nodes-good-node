@@ -19,3 +19,7 @@
        idea:
            find the number of bad nodes that points to no other nodes. once we swap this bad node with a good node, 
            then all nodes connecting to this node will be good 
+       implementation:
+             - generate a graph based on the input, for the graph: Map<Integer, List<Integer>>graph, key is a node, value is the node that the key node point to
+             - find the # of node that are bad node and points to no one 
+        
